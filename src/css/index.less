@@ -1,0 +1,67 @@
+@import './swiper.css';
+@import './animation.less';
+ul,
+li {
+  list-style: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+#bbTimeList {
+  background: var(--card-bg);
+  color: var(--fontcolor);
+  padding: 0.6rem 1rem 0.5rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: all 0.3s;
+  &:hover {
+    box-shadow: var(--card-hover-box-shadow);
+  }
+  #bber-talk {
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    .li-style {
+      width: 100%;
+      height: 28px;
+      text-align: center;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: 0.3s;
+      &:hover {
+        color: #49b1f5;
+      }
+    }
+  }
+  .bber-gotobb {
+    line-height: 25px;
+    margin-left: 8px;
+    transition: 0.3s;
+    &.pass {
+      animation: 1s passing infinite;
+    }
+  }
+}
+
+.aside-bbtalk {
+  user-select: none;
+}
+.bb-btn {
+  text-align: center;
+  display: block;
+  line-height: 2.4;
+  margin-top: 0.7rem;
+  background-color: var(--btn-bg);
+  color: var(--btn-color);
+  user-select: none;
+  &:hover {
+    color: var(--btn-color);
+  }
+}

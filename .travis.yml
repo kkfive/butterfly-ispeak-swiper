@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - '14'
+
+sudo: required
+
+# Travis-CI Caching
+cache:
+  yarn: true
+
+# S: Build Lifecycle
+install:
+  - yarn install
+
+script:
+  - yarn build
+  - npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
+  - npm publish
+  - curl https://purge.jsdelivr.net/npm/butterfly-bber-swiper@latest/dist/index.min.js
