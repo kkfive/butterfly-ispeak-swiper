@@ -1,0 +1,50 @@
+# workflow name
+name: Push
+
+# master branch on push, auto run
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      # check it to your workflow can access it
+      # from: https://github.com/actions/checkout
+      - name: 检查master分支
+        uses: actions/checkout@master
+
+      # from: https://github.com/actions/setup-node
+      - name: 设置Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 缓存
+        uses: actions/cache@v2
+        id: cache-dependencies
+        with:
+          path: node_modules
+          key: ${{runner.OS}}-${{hashFiles('**/yarn.lock')}}
+
+      - name: 安装插件
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: |
+          export TZ='Asia/Shanghai'
+          yarn install
+
+      - name: 生成页面并压缩
+        run: |
+          export TZ='Asia/Shanghai'
+          yarn run build
+
+      - name: 发布包
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          npm publish
+        env:
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}

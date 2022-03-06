@@ -1,10 +1,5 @@
 /**
  * @description: 过滤内容中不合法的部分
- * @author: 小康
- * @url: https://xiaokang.me
- * @Date: 2021-03-30 20:44:16
- * @LastEditTime: 2021-03-30 20:44:17
- * @LastEditors: 小康
  */
 const filter = (content) => {
   // html标签替换

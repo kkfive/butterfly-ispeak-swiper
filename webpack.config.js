@@ -1,10 +1,5 @@
 /**
  * @description: webpack配置文件
- * @author: 小康
- * @url: https://xiaokang.me
- * @Date: 2021-01-03 10:24:50
- * @LastEditTime: 2021-01-03 10:25:54
- * @LastEditors: 小康
  */
 const { resolve } = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -39,6 +34,9 @@ module.exports = {
       // 排除 css js html 文件
       // { exclude: /\.(css|js|html)/, loader: 'file-loader' }
     ]
+  },
+  externals: {
+    Swiper: 'Swiper'
   },
   plugins: [
     new CleanWebpackPlugin(),

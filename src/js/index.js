@@ -1,10 +1,5 @@
 /**
  * @description: 入口文件
- * @author: 小康
- * @url: https://xiaokang.me
- * @Date: 2021-01-03 10:26:27
- * @LastEditTime: 2021-01-03 10:26:27
- * @LastEditors: 小康
  */
 require('../css/index.less')
 require('./inject')
@@ -12,18 +7,25 @@ const Swiper = require('./swiper-bundle.min.js')
 const getData = require('./getData')
 const filter = require('./filter')
 const index = async () => {
-  const data = await getData()
-  const kangSwiper = document.querySelector(`#bbTimeList #bber-talk`)
-  const aside = document.querySelector('.swiper-weapper-aside')
   let innerHtml = ''
   let asideInnerHtml = ''
-  for (const bb of data) {
-    const content = filter(bb.content)
-    innerHtml += `<div class='li-style swiper-slide'>${content}</div>`
-    asideInnerHtml += `<div class='swiper-slide aside-bbtalk'>${content}</div>`
+  try {
+    const data = await getData()
+    const kangSwiper = document.querySelector(`#bbTimeList #bber-talk`)
+    const aside = document.querySelector('.swiper-weapper-aside')
+    console.log(data)
+    for (const bb of data.items) {
+      const content = filter(bb.content)
+      innerHtml += `<div class='li-style swiper-slide'>${content}</div>`
+      asideInnerHtml += `<div class='swiper-slide aside-bbtalk'>${content}</div>`
+    }
+    kangSwiper.innerHTML = innerHtml
+    aside.innerHTML = asideInnerHtml
+  } catch (e) {
+    innerHtml += `<div class='li-style swiper-slide'>获取失败</div>`
+    asideInnerHtml += `<div class='swiper-slide aside-bbtalk'>获取失败</div>`
   }
-  kangSwiper.innerHTML = innerHtml
-  aside.innerHTML = asideInnerHtml
+
   // 上方
   new Swiper('#bbtalk', {
     direction: 'vertical', // 垂直切换选项
